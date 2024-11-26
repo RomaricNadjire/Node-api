@@ -18,7 +18,7 @@ app.use("/api", apiRouter);
 
 app.get("/", (req, res) => {
   res.setHeader("Content-Type", "text/html");
-  res.status(200).send(`<h1>Welcome to my API!</h1>`);
+  res.status(200).send(`<h1>Welcome to my API!</h1>`); // Send a response to the client
 });
 
 // Error handling middleware for 404 routes

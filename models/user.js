@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+const models = require("../models");
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -15,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true, // Ajoutez cette ligne
         autoIncrement: true, // Ajoutez cette ligne si vous souhaitez que l'id s'auto-incrémente
       },
-      username: DataTypes.STRING,
+      name: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
       created_at: DataTypes.DATE,
@@ -24,9 +25,16 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "User",
-      timestamps: false, // Ajoutez ceci si vous n'utilisez pas les champs createdAt et updatedAt automatiquement
+      timestamps: true, // Ajoutez ceci si vous n'utilisez pas les champs createdAt et updatedAt automatiquement
     }
   );
+
+  User.associate = (models) => {
+    User.hasMany(models.Post, {
+      foreignKey: "userId",
+      as: "posts",
+    });
+  };
 
   return User;
 };

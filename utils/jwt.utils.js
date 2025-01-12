@@ -9,7 +9,7 @@ module.exports = {
     return jwt.sign(
       {
         userId: userData.id,
-        username: userData.username,
+        name: userData.name,
       },
       JWT_SECRET_KEY,
       {
@@ -34,7 +34,7 @@ module.exports = {
     try {
       const decoded = jwt.verify(token, JWT_SECRET_KEY);
       const user = await models.User.findOne({
-        attributes: ["id", "username", "email"],
+        attributes: ["id", "name", "email"],
         where: { id: decoded.userId ?? -1 },
       });
 

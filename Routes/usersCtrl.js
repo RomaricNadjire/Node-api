@@ -1,16 +1,16 @@
 const bcrypt = require("bcrypt");
 const { body, validationResult } = require("express-validator");
-const models = require("../models");
 const jwtUtils = require("../utils/jwt.utils");
+const models = require("../models");
 
 // Routes
 module.exports = {
   register: [
     // Validation des champs
-    body("username")
+    body("name")
       .isString()
       .isLength({ min: 3, max: 50 })
-      .withMessage("Username must be at least 3 characters long"),
+      .withMessage("name must be at least 3 characters long"),
     body("email")
       .isEmail()
       .withMessage("Email is not valid")
@@ -35,12 +35,12 @@ module.exports = {
         return res.status(400).json({ errors: errors.array() });
       }
 
-      const { username, email, password } = req.body;
+      const { name, email, password } = req.body;
 
       try {
         const hash = await bcrypt.hash(password, 10);
         const user = await models.User.create({
-          username,
+          name,
           email,
           password: hash,
         });

@@ -26,6 +26,7 @@ app.get("/", (req, res) => {
 // Error handling middleware for 404 routes
 app.use((req, res) => {
   res.status(404).json({ error: "Route not found" });
+  
 });
 
 // Start the server on port 3000
